@@ -1,5 +1,34 @@
+.app_name{
+    background-color: #0e543c;
+    height: 100;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+.general_information{
+    text-align: center;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+.question_today{
+    background-color: #0e543c;
+    width: 50%;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+.question_today>h4{
+    font-style: italic;
+    display: flex;
+    justify-content: flex-end;
+}
+.question_today>h1{
+    display: flex;
+    justify-content: center;
+    color: aliceblue;
+}
 body{
-    background: #46802e;
+    background: url("");
     display: flex;
     align-items: center;
     flex-direction: column;

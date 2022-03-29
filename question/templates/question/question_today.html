@@ -5,11 +5,10 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Think about it</h1>
-    <div class="general information">
-        <p>Привет!</p>
-        <p>Эта площадка создана для обсуждения самых разных вопросов.</p>
-        <p>Здесь ты можешь оставить свой ответ и узнать, что думают другие.</p>
+    <div class="app_name">
+        <h1>THINK ABOUT IT</h1>
+    </div>
+    <div class="general_information">
         <h3>ВОПРОС ДНЯ:</h3>
     </div>
     <div class="question_today">
@@ -19,9 +18,10 @@
     </div>
     <div class="answer">
         <form action="." method="post">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <input type="submit" value="What do you think about it?">
-    </form>
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="What do you think about it?">
+        </form>
     </div>
+
 {% endblock %}
