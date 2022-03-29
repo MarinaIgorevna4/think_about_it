@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    All questions
+{% endblock %}
+
+{% block content %}
+    <h1>Все вопросы</h1>
+    {% for question in questions %}
+        <h3>{{ question.main_question }}</h3>
+        Вопрос дня: {{ question.publish_question }}. Автор: {{ question.author }}
+    {% endfor %}
+{% endblock %}
