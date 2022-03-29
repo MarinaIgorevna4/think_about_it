@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}
+    Think about it
+{% endblock %}
+
+{% block content %}
+    <h1>Think about it</h1>
+    <div class="general information">
+        <p>Привет!</p>
+        <p>Эта площадка создана для обсуждения самых разных вопросов.</p>
+        <p>Здесь ты можешь оставить свой ответ и узнать, что думают другие.</p>
+        <h3>ВОПРОС ДНЯ:</h3>
+    </div>
+    <div class="question_today">
+        <h1>{{ question_today.main_question }}</h1>
+        <h4>Автор: {{ question_today.author }}</h4>
+        <h4>{{ question_today.publish_question }}</h4>
+    </div>
+    <div class="answer">
+        <form action="." method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="What do you think about it?">
+    </form>
+    </div>
+{% endblock %}

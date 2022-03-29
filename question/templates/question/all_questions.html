@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Все вопросы</h1>
+    <h1>Хронология вопросов</h1>
     {% for question in questions %}
         <h3>{{ question.main_question }}</h3>
-        Вопрос дня: {{ question.publish_question }}. Автор: {{ question.author }}
+        Вопрос от {{ question.publish_question }}. Автор: {{ question.author }}
     {% endfor %}
 {% endblock %}
