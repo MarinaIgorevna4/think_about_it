@@ -27,6 +27,10 @@
     justify-content: center;
     color: aliceblue;
 }
+.every_question{
+    border-color: black;
+    border: 5px;
+}
 body{
     background: url("");
     display: flex;

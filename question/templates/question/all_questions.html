@@ -7,7 +7,12 @@
 {% block content %}
     <h1>Хронология вопросов</h1>
     {% for question in questions %}
-        <h3>{{ question.main_question }}</h3>
-        Вопрос от {{ question.publish_question }}. Автор: {{ question.author }}
+        <div class="every_question">
+            <h3>{{ question.main_question }}</h3>
+            Вопрос от {{ question.publish_question }}. Автор: {{ question.author }}
+        </div>
     {% endfor %}
+    <p>
+        <a href="{% url 'question:question_today' %}">Перейти к вопросу дня</a>
+    </p>
 {% endblock %}
