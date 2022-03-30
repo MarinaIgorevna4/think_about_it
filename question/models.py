@@ -17,3 +17,12 @@ class Question(models.Model):
         return reverse('question:discussion_question',
                        self.slug)
 
+
+class Answer(models.Model):
+    comment = models.TextField()
+    question = models.ForeignKey(Question,
+                                 on_delete=models.CASCADE)
+    author = models.ForeignKey(User,
+                               on_delete=models.CASCADE,
+                               related_name='user_answer')
+    publish = models.DateTimeField(default=timezone.now)
