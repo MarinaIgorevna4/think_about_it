@@ -14,10 +14,19 @@
         <h4>{{ question_today.publish_question }}</h4>
     </div>
     <div class="answer">
+        <p>Напишите, что вы думаете об этом:</p>
         <form action="." method="post">
-            {{ form.as_p }}
+            {{ answer_form.as_p }}
             {% csrf_token %}
-            <input type="submit" value="What do you think about it?">
+            <input type="submit" value="Send">
+        </form>
+    </div>
+    <div class="suggest">
+        <p>Предложите свой вопрос для обсуждения:</p>
+        <form action="." method="post">
+            {{ question_form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="Suggest">
         </form>
     </div>
     <p>

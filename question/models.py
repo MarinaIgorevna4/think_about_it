@@ -15,7 +15,7 @@ class Question(models.Model):
 
     def get_absolute_url(self):
         return reverse('question:discussion_question',
-                       self.slug)
+                       args=[self.slug, ])
 
 
 class Answer(models.Model):
