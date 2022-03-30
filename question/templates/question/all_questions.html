@@ -9,7 +9,10 @@
     {% for question in questions %}
         <div class="every_question">
             <h3>{{ question.main_question }}</h3>
-            Вопрос от {{ question.publish_question }}. Автор: {{ question.author }}
+            {{ question.publish_question }} Автор: {{ question.author }}
+            <p>
+                <a href="{{ every_question.get_absolute_url }}">Перейти на страницу обсуждения</a>
+            </p>
         </div>
     {% endfor %}
     <p>
