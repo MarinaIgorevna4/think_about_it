@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base-login-out.html" %}
 
 {% block title %}User login{% endblock %}
 
@@ -16,4 +16,5 @@
         <input type="submit" value="login">
         <input type="hidden" name="next" value="{{ next }}">
     </form>
+    <a href="{% url 'question:password_reset' %}">Forgot your password?</a>
 {% endblock %}
