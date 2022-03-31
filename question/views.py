@@ -50,8 +50,13 @@ class QuestionListView(LoginRequiredMixin, ListView):
 #@login_required
 def discussion_question(request, slug):
     every_question = get_object_or_404(models.Question, slug=slug)
+    # all_answers = models.Answer.objects.all()
+    # answers = [answer for answer in all_answers if all_answers.question == every_question]
+    answers = models.Answer.objects.filter(question=every_question)
     return render(request, "question/discussion_question.html",
-                  {"every_question": every_question})
+                  {"every_question": every_question,
+                   'answers': answers
+                   })
 
 
 

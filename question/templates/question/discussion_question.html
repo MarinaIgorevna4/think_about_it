@@ -14,15 +14,12 @@
     </div>
 
     <div class="discussion">
-        {% with material.comments.count as total_comments %}
-            {{ total_comments }} comment{{ total_comments|pluralize }}
-        {% endwith %}
-
-        {% for comment in material.comments.all %}
-            <p>Ответ №{{ forloop.counter }} от {{ comment.name }}</p>
-            {{ comment.body }}
+        {% for answer in answers %}
+            <p>Ответ №{{ forloop.counter }} от {{ answer.author }}</p><br>
+            {{ answer.comment }}
+            <p>Опубликовано {{ answer.publish }}</p>
         {% empty %}
-            На этот вопрос еще никто не ответил. Ты можешь быть первым!
+            <p>На этот вопрос никто не ответил</p>
         {% endfor %}
     </div>
 
