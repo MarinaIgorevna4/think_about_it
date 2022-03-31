@@ -1,9 +1,18 @@
+from django.core.mail import send_mail
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.core.mail import send_mail
-from . import models, forms
-from django.contrib.auth.models import User
+from django.shortcuts import redirect
 from django.utils import timezone
+from django.views.generic import ListView
+
+from . import models
+from . import forms
 
 
 # Create your views here.
@@ -15,18 +24,26 @@ def question_today(request):
                   {'question_today': question_of_the_day})
 
 
-def all_questions(request):
-    questions = models.Question.objects.all()[::-1]
-    return render(request, 'question/all_questions.html',
-                  {'questions': questions})
+# def all_questions(request):
+    # questions = models.Question.objects.all()[::-1]
+    # return render(request, 'question/all_questions.html',
+                  # {'questions': questions})
 
 
+class QuestionListView(LoginRequiredMixin, ListView):
+    queryset = models.Question.objects.all()[::-1]
+    context_object_name = 'questions'
+    template_name = 'question/all_questions.html'
+
+
+@login_required
 def discussion_question(request, slug):
     every_question = get_object_or_404(models.Question, slug=slug)
     return render(request, "question/discussion_question.html",
                   {"every_question": every_question})
 
 
+# @login_required
 def send_answer(request, question_id):
     question = get_object_or_404(models.Answer,
                                  id=question_id)
@@ -35,9 +52,10 @@ def send_answer(request, question_id):
         if answer_form.is_valid():
             new_answer = answer_form.save(commit=False)
             new_answer.question = question.question
-            new_answer.author = User.objects.first()     #нужно выбрать текущего пользователя
+            new_answer.author = User.objects.first()     # нужно выбрать текущего пользователя
             new_answer.publish = timezone.now()
             new_answer.save()
+            # return redirect(question)
     else:
         answer_form = forms.AnswerForm()
     return render(request,
@@ -45,6 +63,7 @@ def send_answer(request, question_id):
                   {'answer_form': answer_form})
 
 
+# @login_required
 def suggest_question(request):
     if request.method == 'POST':
         question_form = forms.QuestionForm(request.POST)
@@ -53,10 +72,32 @@ def suggest_question(request):
             subject = 'Suggest question'
             author = User.objects.first()
             suggest = cd['suggest_question']
-            body = (f'Author of question: {author}\n{suggest}')
+            body = f'Author of question: {author}\n{suggest}'
             send_mail(subject, body, 'user@mu.com', ('admin@mu.com',))
 
     else:
         question_form = forms.QuestionForm()
     return render(request, 'question/question_today.html',
                   {'question_form': question_form})
+
+
+def custom_login(request):
+    if request.method == 'POST':
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(
+                username=cd['username'],
+                password=cd['password'],
+            )
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponse('user was logged in')
+                else:
+                    return HttpResponse('user account is not activated')
+            else:
+                return HttpResponse('Incorrect User/Password')
+    else:
+        form = forms.LoginForm()
+        return render(request, 'login.html', {'form': form})

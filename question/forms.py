@@ -10,3 +10,8 @@ class AnswerForm(forms.ModelForm):
 
 class QuestionForm(forms.Form):
     suggest_question = forms.CharField(widget=forms.Textarea)
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
