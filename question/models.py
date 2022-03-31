@@ -21,8 +21,9 @@ class Question(models.Model):
 class Answer(models.Model):
     comment = models.TextField()
     question = models.ForeignKey(Question,
-                                 on_delete=models.CASCADE)
+                                 on_delete=models.CASCADE,
+                                 related_name='comments')
     author = models.ForeignKey(User,
                                on_delete=models.CASCADE,
                                related_name='user_answer')
-    publish = models.DateTimeField(default=timezone.now)
+    publish = models.DateTimeField(auto_now_add=True)

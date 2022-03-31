@@ -14,7 +14,8 @@
     {% endblock %}
 
     {% if request.user.is_authenticated %}
-        Привет, {{ request.user.first_name }}    <a href="{% url 'question:logout' %}">Выйти</a>
+        Привет, {{ request.user.first_name }}!
+        <a href="{% url 'question:logout' %}">Выйти</a>
     {% else %}
         <a href="{% url 'question:login' %}">Войти</a>
     {% endif %}<br>

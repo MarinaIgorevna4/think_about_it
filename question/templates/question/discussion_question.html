@@ -12,9 +12,20 @@
         <h2>{{ every_question.main_question }}</h2>
         <h4>Автор: {{ every_question.author }}</h4>
     </div>
-    <div class="discussion">
 
+    <div class="discussion">
+        {% with material.comments.count as total_comments %}
+            {{ total_comments }} comment{{ total_comments|pluralize }}
+        {% endwith %}
+
+        {% for comment in material.comments.all %}
+            <p>Ответ №{{ forloop.counter }} от {{ comment.name }}</p>
+            {{ comment.body }}
+        {% empty %}
+            На этот вопрос еще никто не ответил. Ты можешь быть первым!
+        {% endfor %}
     </div>
+
     <p>
         <a href="{% url 'question:all_questions' %}">Перейти ко всем вопросам</a>
     </p>

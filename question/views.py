@@ -20,8 +20,19 @@ from . import forms
 
 def question_today(request):
     question_of_the_day = models.Question.objects.all().last()
+    if request.method == 'POST':
+        answer_form = forms.AnswerForm(request.POST)
+        if answer_form.is_valid():
+            new_answer = answer_form.save(commit=False)
+            new_answer.question = question_of_the_day
+            new_answer.author = User.objects.first()  # нужно выбрать текущего пользователя
+            new_answer.save()
+            return redirect(question_of_the_day)
+    else:
+        answer_form = forms.AnswerForm()
     return render(request, 'question/question_today.html',
-                  {'question_today': question_of_the_day})
+                  {'question_today': question_of_the_day,
+                   'answer_form': answer_form})
 
 
 # def all_questions(request):
@@ -36,31 +47,12 @@ class QuestionListView(LoginRequiredMixin, ListView):
     template_name = 'question/all_questions.html'
 
 
-@login_required
+#@login_required
 def discussion_question(request, slug):
     every_question = get_object_or_404(models.Question, slug=slug)
     return render(request, "question/discussion_question.html",
                   {"every_question": every_question})
 
-
-# @login_required
-def send_answer(request, question_id):
-    question = get_object_or_404(models.Answer,
-                                 id=question_id)
-    if request.method == 'POST':
-        answer_form = forms.AnswerForm(request.POST)
-        if answer_form.is_valid():
-            new_answer = answer_form.save(commit=False)
-            new_answer.question = question.question
-            new_answer.author = User.objects.first()     # нужно выбрать текущего пользователя
-            new_answer.publish = timezone.now()
-            new_answer.save()
-            # return redirect(question)
-    else:
-        answer_form = forms.AnswerForm()
-    return render(request,
-                  "question/question_today.html",
-                  {'answer_form': answer_form})
 
 
 # @login_required

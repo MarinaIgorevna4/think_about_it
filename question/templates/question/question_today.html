@@ -13,14 +13,22 @@
         <h4>Автор: {{ question_today.author }}</h4>
         <h4>{{ question_today.publish_question }}</h4>
     </div>
-    <div class="answer">
+
+    {# answers for question #}
+    {% if commented %}
+        Вы уже ответили на этот вопрос
+        <p>
+            <a href="{{ question_today.get_absolute_url }}">Перейти к ответам</a>
+        </p>
+    {% else %}
         <p>Напишите, что вы думаете об этом:</p>
         <form action="." method="post">
             {{ answer_form.as_p }}
             {% csrf_token %}
             <input type="submit" value="Send">
         </form>
-    </div>
+    {% endif %}
+
     <div class="suggest">
         <p>Предложите свой вопрос для обсуждения:</p>
         <form action="." method="post">
