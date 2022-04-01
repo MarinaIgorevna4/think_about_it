@@ -20,47 +20,47 @@ from . import forms
 
 def question_today(request):
     question_of_the_day = models.Question.objects.all().last()
-    if request.method == 'POST':
-        answer_form = forms.AnswerForm(request.POST)
-        if answer_form.is_valid():
-            new_answer = answer_form.save(commit=False)
-            new_answer.question = question_of_the_day
-            new_answer.author = User.objects.first()  # нужно выбрать текущего пользователя
-            new_answer.save()
-            return redirect(question_of_the_day)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            answer_form = forms.AnswerForm(request.POST)
+            if answer_form.is_valid():
+                new_answer = answer_form.save(commit=False)
+                new_answer.question = question_of_the_day
+                new_answer.author = request.user
+                new_answer.save()
+                return redirect(question_of_the_day)
+        else:
+            answer_form = forms.AnswerForm()
+        return render(request, 'question/question_today.html',
+                      {'question_today': question_of_the_day,
+                       'answer_form': answer_form})
     else:
-        answer_form = forms.AnswerForm()
-    return render(request, 'question/question_today.html',
-                  {'question_today': question_of_the_day,
-                   'answer_form': answer_form})
+        unregistered = 'Чтобы ответить, войдите в свой профиль или зарегистрируйтесь.'
+        return render(request, 'question/question_today.html',
+                      {'question_today': question_of_the_day,
+                       'unregistered': unregistered})
 
 
 # def all_questions(request):
-    # questions = models.Question.objects.all()[::-1]
-    # return render(request, 'question/all_questions.html',
-                  # {'questions': questions})
+# questions = models.Question.objects.all()[::-1]
+# return render(request, 'question/all_questions.html',
+# {'questions': questions})
 
 
-class QuestionListView(LoginRequiredMixin, ListView):
+class QuestionListView(ListView):
     queryset = models.Question.objects.all()[::-1]
     context_object_name = 'questions'
     template_name = 'question/all_questions.html'
 
 
-#@login_required
 def discussion_question(request, slug):
     every_question = get_object_or_404(models.Question, slug=slug)
-    # all_answers = models.Answer.objects.all()
-    # answers = [answer for answer in all_answers if all_answers.question == every_question]
     answers = models.Answer.objects.filter(question=every_question)
     return render(request, "question/discussion_question.html",
                   {"every_question": every_question,
-                   'answers': answers
-                   })
+                   'answers': answers})
 
 
-
-# @login_required
 def suggest_question(request):
     if request.method == 'POST':
         question_form = forms.QuestionForm(request.POST)
@@ -98,3 +98,7 @@ def custom_login(request):
     else:
         form = forms.LoginForm()
         return render(request, 'login.html', {'form': form})
+
+
+def view_profile(request):
+    return render(request, 'profile.html')

@@ -31,4 +31,7 @@ class Answer(models.Model):
 
 
 class Profile(models.Model):
-    pass
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to="user/%Y/%m/%d/", blank=True)
+    birth = models.DateField(null=True, blank=True)
+    city = models.CharField(max_length=30)

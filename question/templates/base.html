@@ -8,7 +8,7 @@
     <link href="{% static 'styles.css' %}" rel="stylesheet">
 
 </head>
-
+<body>
     {% block app_name %}
         <div class="app_name">
             <h1>THINK ABOUT IT</h1>
@@ -19,6 +19,7 @@
             <div class="welcome">
                 <p>Привет, {{ request.user.first_name }}!<br>
                 <a href="{% url 'question:logout' %}">Выйти</a></p>
+                <a href="{% url 'question:profile' %}">Профиль</a></p>
             </div>
         {% else %}
             <div class="welcome">
