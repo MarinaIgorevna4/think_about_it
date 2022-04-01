@@ -1,9 +1,10 @@
-{% extends "base-login-out.html" %}
+{% extends "base.html" %}
 
 {% block title %}User login{% endblock %}
 
 {% block content %}
-    <h2>User login:</h2>
+    <div class="container">
+    <h2>Заполните поля:</h2>
     {% if form.errors %}
         <p>
             Что-то пошло не так...
@@ -13,9 +14,10 @@
     <form action="." method="post">
         {{ form.as_p }}
         {% csrf_token %}
-        <input type="submit" value="login">
+        <input type="submit" value="Войти" class="btn btn-dark">
         <input type="hidden" name="next" value="{{ next }}">
     </form>
     <a href="{% url 'question:password_reset' %}">Забыли пароль?</a>
-    <a href="{% url 'question:register' %}">Зарегистрироваться</a>
+    <a href="{% url 'question:register' %}">Еще не зарегистрировались?</a>
+    </div>
 {% endblock %}

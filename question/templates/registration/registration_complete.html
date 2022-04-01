@@ -1,8 +1,10 @@
-{% extends "base-login-out.html" %}
+{% extends "base.html" %}
 
 {% block title %}Registration complete{% endblock %}
 
 {% block content %}
+    <div class="container">
     Регистрация успешно завершена. <br>
-    Теперь вы можете <a href="{% url "question:login" %}">Войти</a>
+    <p>Теперь вы можете <a href="{% url "question:login" %}">Войти</a></p>
+    </div>
 {% endblock %}

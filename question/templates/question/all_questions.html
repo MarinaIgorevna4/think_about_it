@@ -5,15 +5,20 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Хронология вопросов</h1>
-    {% for question in questions %}
-        <div class="every_question">
-            <h3>{{ question.main_question }}</h3>
-            {{ question.publish_question }} Автор: {{ question.author }}<br>
-            <a href="{{ question.get_absolute_url }}">Посмотреть обсуждение</a>
+    <div class="container">
+    <h1>Все вопросы</h1>
+        <div class="container overflow-hidden" style="width: 80%">
+          <div class="row gy-5">
+            <div class="col-12">
+                  {% for question in questions %}
+                      <div class="p-6 border bg-light" style="padding: 3px 20px 3px 20px; margin: 5px; width: 100%">
+                          <h4>{{ question.main_question }}</h4>
+                          {{ question.publish_question }}   Автор: {{ question.author }}<br>
+                          <a href="{{ question.get_absolute_url }}">Посмотреть обсуждение</a>
+                      </div>
+                  {% endfor %}
+            </div>
+          </div>
         </div>
-    {% endfor %}
-    <p>
-        <a href="{% url 'question:question_today' %}">Перейти к вопросу дня</a>
-    </p>
+    </div>
 {% endblock %}

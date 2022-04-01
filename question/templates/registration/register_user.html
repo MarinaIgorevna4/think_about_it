@@ -1,12 +1,16 @@
-{% extends "base-login-out.html" %}
+{% extends "base.html" %}
 
 {% block title %}Register User{% endblock %}
 
 {% block content %}
-    <h2>Заполните форму:</h2>
+    <div class="container">
+    <h2>Заполните поля:</h2>
+        <div class="container">
     <form action="." method="post">
         {{ form.as_p }}
         {% csrf_token %}
-        <input type="submit" value="Зарегистрироваться">
+        <input type="submit" value="Зарегистрироваться" class="btn btn-dark">
     </form>
+        </div>
+    </div>
 {% endblock %}

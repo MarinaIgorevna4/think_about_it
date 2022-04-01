@@ -1,20 +1,50 @@
-{% extends "base-login-out.html" %}
+{% load bootstrap4 %}
+{% load static %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 
-{% block welcomeandcontent %}
-    {% block welcome %}
-        {% if request.user.is_authenticated %}
-            <div class="welcome">
-                <p>Привет, {{ request.user.first_name }}!<br>
-                <a href="{% url 'question:logout' %}">Выйти</a></p>
-                <a href="{% url 'question:profile' %}">Профиль</a></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}THINK ABOUT IT{% endblock %}</title>
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
+</head>
+<body>
+    <header>
+        {% block app_name %}
+            <div class="app_name">
+                <h1>THINK ABOUT IT</h1>
             </div>
-        {% else %}
-            <div class="welcome">
-                <p><a href="{% url 'question:login' %}">Войти</a></p>
-            </div>
-        {% endif %}
-    {% endblock %}
-    {% block content %}
+        {% endblock %}
+    </header>
 
+    {% block welcomeandcontent %}
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'question:question_today' %}">Вопрос дня</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'question:all_questions' %}">Все вопросы</a>
+          </li>
+          {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'question:profile' %}">Мой профиль</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled">Привет, {{ request.user.first_name }}!</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'question:logout' %}">Выйти</a>
+              </li>
+          {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'question:login' %}">Войти</a>
+              </li>
+          {% endif %}
+        </ul>
+            {% block content %}
+            {% endblock %}
     {% endblock %}
-{% endblock %}
+</body>
+</html>

@@ -1,10 +1,9 @@
-{% extends "base-login-out.html" %}
+{% extends "base.html" %}
 
 {% block title %}Logout{% endblock %}
 
 {% block content %}
-    <h2>Logout</h2>
-    Вы вышли из профиля
-    <a href="{% url 'question:login' %}">Войти</a><br>
-    <a href="{% url 'question:question_today' %}">Перейти на главную</a>
+    <div class="container">
+    <h2>Вы вышли из профиля</h2>
+    </div>
 {% endblock %}

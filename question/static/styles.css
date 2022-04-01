@@ -6,14 +6,10 @@
     text-align: center;
     color: white;
 }
-.welcome{
+.container{
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    background-color: black;
-    color: white;
-    height: 30px;
-    width: 100%;
+    flex-direction: column;
 }
 .general_information{
     text-align: center;
@@ -23,11 +19,11 @@
 }
 .question_today{
     background-color: #0e543c;
-    width: 50%;
+    width: 80%;
     padding: 20px;
     margin-bottom: 10px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 }
 .question_today>h4{
     font-style: italic;
@@ -39,11 +35,7 @@
     justify-content: center;
     color: aliceblue;
 }
-.every_question{
-    border: 5px black;
-    display: flex;
-    justify-content: center;
-}
+
 body{
     font-family: sans-serif;
     display: flex;

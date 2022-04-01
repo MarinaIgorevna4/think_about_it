@@ -3,13 +3,16 @@
 {% block title %}User Profile{% endblock %}
 
 {% block content %}
+    <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"
+               href="{% url 'question:edit_profile' %}">Редактировать профиль</a>
+          </li>
+    </ul>
+    <div class="container">
     <h1>{{ request.user.first_name }}</h1>
     <p>Дата рождения: {{ request.user.profile.birth }}</p>
     <p>Город: {{ request.user.profile.city }}</p>
     <p>Фото <img src="{{ request.user.profile.photo.url }}" alt="Profile Photo"></p>
-
-    <a href="{% url "question:edit_profile" %}">Редактировать профиль</a>
-    <p>
-        <a href="{% url 'question:question_today' %}">Перейти к вопросу дня</a>
-    </p>
+    </div>
 {% endblock %}
