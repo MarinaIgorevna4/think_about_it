@@ -8,6 +8,7 @@
 .welcome{
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     background-color: black;
     color: white;
     height: 30px;
@@ -24,6 +25,8 @@
     width: 50%;
     padding: 20px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
 }
 .question_today>h4{
     font-style: italic;
@@ -37,7 +40,11 @@
 }
 .every_question{
     border: 5px black;
+    display: flex;
+    justify-content: center;
 }
 body{
     font-family: sans-serif;
+    display: flex;
+    justify-content: center;
 }

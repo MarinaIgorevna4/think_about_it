@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 
 
 # Create your models here.
@@ -27,3 +28,7 @@ class Answer(models.Model):
                                on_delete=models.CASCADE,
                                related_name='user_answer')
     publish = models.DateTimeField(auto_now_add=True)
+
+
+class Profile(models.Model):
+    pass
