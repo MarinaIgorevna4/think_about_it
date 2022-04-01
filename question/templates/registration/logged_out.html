@@ -4,6 +4,7 @@
 
 {% block content %}
     <h2>Logout</h2>
-    You've been logged out
-    <a href="{% url 'question:login' %}">Login</a>
+    Вы вышли из профиля
+    <a href="{% url 'question:login' %}">Войти</a><br>
+    <a href="{% url 'question:question_today' %}">Перейти на главную</a>
 {% endblock %}

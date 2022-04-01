@@ -14,7 +14,7 @@ class MyHuck(auth_views.PasswordResetView):
 
 
 urlpatterns = [
-    path('', views.question_today, name='question_today'),
+    path('question/', views.question_today, name='question_today'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     # path('login/', views.custom_login, name='login'),
@@ -39,6 +39,7 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path('profile/', views.view_profile, name='profile'),
+    path('register/', views.register, name='register'),
     path('<slug:slug>/', views.discussion_question, name='discussion_question'),
 ]
 

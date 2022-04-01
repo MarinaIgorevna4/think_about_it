@@ -6,7 +6,7 @@
     <h2>User login:</h2>
     {% if form.errors %}
         <p>
-            Bad credentials
+            Что-то пошло не так...
         </p>
     {% else %}
     {% endif %}
@@ -16,5 +16,6 @@
         <input type="submit" value="login">
         <input type="hidden" name="next" value="{{ next }}">
     </form>
-    <a href="{% url 'question:password_reset' %}">Forgot your password?</a>
+    <a href="{% url 'question:password_reset' %}">Забыли пароль?</a>
+    <a href="{% url 'question:register' %}">Зарегистрироваться</a>
 {% endblock %}

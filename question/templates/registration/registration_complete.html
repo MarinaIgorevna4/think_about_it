@@ -1,0 +1,8 @@
+{% extends "base-login-out.html" %}
+
+{% block title %}Registration complete{% endblock %}
+
+{% block content %}
+    Регистрация успешно завершена. <br>
+    Теперь вы можете <a href="{% url "question:login" %}">Войти</a>
+{% endblock %}
