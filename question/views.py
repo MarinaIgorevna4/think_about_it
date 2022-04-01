@@ -61,23 +61,6 @@ def discussion_question(request, slug):
                    'answers': answers})
 
 
-def suggest_question(request):
-    if request.method == 'POST':
-        question_form = forms.QuestionForm(request.POST)
-        if question_form.is_valid():
-            cd = question_form.cleaned_data
-            subject = 'Suggest question'
-            author = User.objects.first()
-            suggest = cd['suggest_question']
-            body = f'Author of question: {author}\n{suggest}'
-            send_mail(subject, body, 'user@mu.com', ('admin@mu.com',))
-
-    else:
-        question_form = forms.QuestionForm()
-    return render(request, 'question/question_today.html',
-                  {'question_form': question_form})
-
-
 def custom_login(request):
     if request.method == 'POST':
         form = forms.LoginForm(request.POST)
@@ -119,3 +102,29 @@ def register(request):
     else:
         user_form = forms.RegistrationForm(request.POST)
         return render(request, 'registration/register_user.html', {"form": user_form})
+
+
+def _get_forms(request, post_method):
+    user_form = forms.UserEditForm(request.POST, instance=request.user)
+    kw = {'instance': request.user.profile}
+    if post_method:
+        kw.update({'files': request.FILES})
+    profile_form = forms.ProfileEditForm(request.POST, **kw)
+    return user_form, profile_form
+
+
+def edit_profile(request):
+    post_method = request.method == "POST"
+    user_form, profile_form = _get_forms(request, post_method)
+    if post_method:
+        if profile_form.is_valid():
+            if user_form.is_valid():
+                if not profile_form.cleaned_data['photo']:
+                    profile_form.cleaned_data['photo'] = request.user.profile.photo
+                profile_form.save()
+                user_form.save()
+                return render(request, 'profile.html')
+    else:
+        return render(request,
+                      'edit_profile.html',
+                      {'user_form': user_form, 'profile_form': profile_form})

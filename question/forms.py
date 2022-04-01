@@ -9,10 +9,6 @@ class AnswerForm(forms.ModelForm):
         fields = ('comment', )
 
 
-class QuestionForm(forms.Form):
-    suggest_question = forms.CharField(widget=forms.Textarea)
-
-
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
@@ -31,3 +27,15 @@ class RegistrationForm(forms.ModelForm):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError("Пароли не совпадают")
         return cd['password2']
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'email')
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = models.Profile
+        fields = ('birth', 'photo', 'city')

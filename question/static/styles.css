@@ -1,6 +1,7 @@
 .app_name{
     background-color: #0e543c;
-    height: 90px;
+    height: 60px;
+    line-height: 60px;
     width: 100%;
     text-align: center;
     color: white;

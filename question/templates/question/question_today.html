@@ -29,14 +29,7 @@
                 <input type="submit" value="Send">
             </form>
         {% endif %}
-        <div class="suggest">
-        <p>Предложите свой вопрос для обсуждения:</p>
-        <form action="." method="post">
-            {{ question_form.as_p }}
-            {% csrf_token %}
-            <input type="submit" value="Suggest">
-        </form>
-    </div>
+
     {% else %}
         {{ unregistered }}
     {% endif %}

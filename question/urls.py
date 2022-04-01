@@ -40,9 +40,9 @@ urlpatterns = [
     ),
     path('profile/', views.view_profile, name='profile'),
     path('register/', views.register, name='register'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
     path('<slug:slug>/', views.discussion_question, name='discussion_question'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
